@@ -9,35 +9,36 @@ package org.dng;
 //import java.io.IOException;
 //import java.io.PrintWriter;
 
+import org.dng.repository.CarsRepository;
+import org.dng.repository.CarsRepositoryI;
+
 import java.io.*;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
-@WebServlet("/hello")
+@WebServlet("/cars")
 public class setDataServlet extends HttpServlet {
-//    @Override
-//    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        resp.setContentType("text/html");
-//        PrintWriter printWriter = resp.getWriter();
-//        try {
-//            printWriter.println("<h2>Hello from HelloServlet</h2>");
-//        } finally {
-//            printWriter.close();
-//        }
-//    }
-private String message;
 
-    public void init() {
-        message = "Hello World!";
-    }
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html");
-        // Hello
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>" + message + "</h1>");
-        out.println("</body></html>");
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+        CarsRepository.makeNCars(3);
+        List<Car> lc = CarsRepository.findAll();
+        lc.stream().forEach(c-> System.out.println(c.toString()));
+
+        request.setAttribute("cars", lc);
+        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/jsp/cars.jsp");
+        dispatcher.forward(request, response);
+
+//        response.setContentType("text/html");
+//        // Hello
+//        PrintWriter out = response.getWriter();
+//        out.println("<html><body>");
+//        out.println("<h1> Hello ))</h1>");
+//        out.println("</body></html>");
     }
 
     public void destroy() {

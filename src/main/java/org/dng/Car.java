@@ -49,4 +49,9 @@ public class Car {
     public double taxSum() {
         return (power * taxRate - (issueYear - LocalDate.now().getYear()) / taxRate);
     }
+
+    @Override
+    public String toString() {
+        return "for car "+getGosNom()+" with power "+getPower()+" and issueYear "+getIssueYear()+" tax = "+taxSum();
+    }
 }

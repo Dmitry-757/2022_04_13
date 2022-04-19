@@ -9,6 +9,6 @@
 <br/>
 <a href="hello">Hello Servlet</a>
 <br/>
-<a href="cartax">Car Tax Setting</a>
+<a href="cars">Cars list</a>
 </body>
 </html>
