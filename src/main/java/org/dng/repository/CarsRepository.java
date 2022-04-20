@@ -21,4 +21,8 @@ public class CarsRepository {
         return lCars;
     }
 
+    public static void setTax(double tax){
+        Car.setTaxRate(tax);
+    }
+
 }

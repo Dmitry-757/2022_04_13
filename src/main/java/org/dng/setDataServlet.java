@@ -22,26 +22,48 @@ import javax.servlet.annotation.*;
 @WebServlet("/cars")
 public class setDataServlet extends HttpServlet {
 
-
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
-        CarsRepository.makeNCars(3);
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+//        CarsRepository.makeNCars(3);
         List<Car> lc = CarsRepository.findAll();
-        lc.stream().forEach(c-> System.out.println(c.toString()));
+        // lc.stream().forEach(c -> System.out.println(c.toString()));
+        req.setAttribute("cars", lc);
+        req.setAttribute("taxRate", Car.getTaxRate());
 
-        request.setAttribute("cars", lc);
-        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/jsp/cars.jsp");
-        dispatcher.forward(request, response);
-
-//        response.setContentType("text/html");
-//        // Hello
-//        PrintWriter out = response.getWriter();
-//        out.println("<html><body>");
-//        out.println("<h1> Hello ))</h1>");
-//        out.println("</body></html>");
+        RequestDispatcher dispatcher = req.getServletContext().getRequestDispatcher("/jsp/cars.jsp");
+        dispatcher.forward(req, resp);
     }
 
-    public void destroy() {
-    }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String sTaxRate = req.getParameter("taxRate");
+        if(sTaxRate != null) {
+            double tax = Double.parseDouble(sTaxRate);
+            CarsRepository.setTax(tax);
+
+            req.setAttribute("taxRate", Car.getTaxRate());
+
+            List<Car> lc = CarsRepository.findAll();
+            req.setAttribute("cars", lc);
+            RequestDispatcher dispatcher = req.getServletContext().getRequestDispatcher("/jsp/cars.jsp");
+            dispatcher.forward(req, resp);
+        }
+
+        String sNumCar = req.getParameter("numCar");
+        if(sNumCar != null) {
+            int nCars = Integer.parseInt(sNumCar);
+            CarsRepository.makeNCars(nCars);
+
+//            RequestDispatcher dispatcher = req.getServletContext().getRequestDispatcher("/cars");
+//            dispatcher.forward(req, resp);
+
+//            doGet(req,resp);
+            req.setAttribute("taxRate", Car.getTaxRate());
+            List<Car> lc = CarsRepository.findAll();
+            req.setAttribute("cars", lc);
+            RequestDispatcher dispatcher = req.getServletContext().getRequestDispatcher("/jsp/cars.jsp");
+            dispatcher.forward(req, resp);
+        }
+
+    }
 }

@@ -41,28 +41,42 @@
 </head>
 <body>
 
-<%
-    ArrayList<Car> cars = (ArrayList<Car>) request.getAttribute("cars");
-%>
+<form method="post">
+    <label for="numCar"> Make n-Cars
+        <input type="number" id="numCar" name="numCar">
+    </label>
+    <input type="submit" value="Make n-Cars">
+</form>
+<form method="post">
+    <label for="setTax"> Tax Rate
+        <input type="number" id="setTax" name="taxRate">
+    </label>
+    <input type="submit" value="Set TaxRate">
+</form>
+
+
+
+<%--<%--%>
+<%--    if(request.getAttribute("cars")!=null){ArrayList<Car> cars = (ArrayList<Car>) request.getAttribute("cars");}--%>
+<%--%>--%>
 <table>
     <tr>
         <th>gosNom</th>
         <th>power</th>
-        <th>issueYear</th>
+        <th>issue year</th>
+        <th>tax value (tax rate = <%= request.getAttribute("taxRate")%>)</th>
     </tr>
-<%--    <tr>--%>
-<%--        <td>111</td>--%>
-<%--        <td>111</td>--%>
-<%--        <td>111</td>--%>
-<%--      </tr>--%>
 
-    <% for (Car car : cars){ %>
+    <% if(request.getAttribute("cars")!=null){
+        ArrayList<Car> cars = (ArrayList<Car>) request.getAttribute("cars");
+        for (Car car : cars){ %>
         <tr>
             <td> <%= car.getGosNom() %> </td>
             <td> <%= car.getPower() %> </td>
             <td> <%= car.getIssueYear() %> </td>
+            <td> <%= car.taxSum() %> </td>
         </tr>
-    <%}%>
+    <%}}%>
 </table>
 </body>
 </html>
