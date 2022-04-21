@@ -30,35 +30,23 @@
         td {
             text-align: center;
         }
-        /*tr:nth-child(even) td {*/
-        /*    background-color: rgb(250,250,250);*/
-        /*}*/
-
-        /*tr:nth-child(odd) td {*/
-        /*    background-color: rgb(245,245,245);*/
-        /*}*/
     </style>
 </head>
 <body>
 
 <form method="post">
-    <label for="numCar"> Make n-Cars
+    <label for="numCar"> Input nuber of cars for creating
         <input type="number" id="numCar" name="numCar">
     </label>
     <input type="submit" value="Make n-Cars">
 </form>
 <form method="post">
-    <label for="setTax"> Tax Rate
+    <label for="setTax"> Input tax rate
         <input type="number" id="setTax" name="taxRate">
     </label>
     <input type="submit" value="Set TaxRate">
 </form>
 
-
-
-<%--<%--%>
-<%--    if(request.getAttribute("cars")!=null){ArrayList<Car> cars = (ArrayList<Car>) request.getAttribute("cars");}--%>
-<%--%>--%>
 <table>
     <tr>
         <th>gosNom</th>
