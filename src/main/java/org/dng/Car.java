@@ -47,7 +47,7 @@ public class Car {
     }
 
     public double taxSum() {
-        return (power * taxRate - (issueYear - LocalDate.now().getYear()) / taxRate);
+        return (taxRate != 0) ? (power * taxRate - (issueYear - LocalDate.now().getYear()) / taxRate) : 0;
     }
 
     @Override

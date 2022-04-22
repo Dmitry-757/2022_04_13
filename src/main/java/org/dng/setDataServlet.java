@@ -55,12 +55,14 @@ public class setDataServlet extends HttpServlet {
         String sNumCar = req.getParameter("numCar");
         if(sNumCar != null) {
             int nCars = Integer.parseInt(sNumCar);
-            CarsRepository.makeNCars(nCars);//creat nCars objects of Cars
+            if(nCars >= 0) {
+                CarsRepository.makeNCars(nCars);//creat nCars objects of Cars
 
-            //renew data for user in http
-            req.setAttribute("taxRate", Car.getTaxRate());
-            List<Car> lc = CarsRepository.findAll();
-            req.setAttribute("cars", lc);
+                //renew data for user in http
+                req.setAttribute("taxRate", Car.getTaxRate());
+                List<Car> lc = CarsRepository.findAll();
+                req.setAttribute("cars", lc);
+            }
             RequestDispatcher dispatcher = req.getServletContext().getRequestDispatcher("/jsp/cars.jsp");
             dispatcher.forward(req, resp);
         }
